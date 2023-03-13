@@ -4,7 +4,9 @@ const routes = require("./routes/index");
 const app = express();
 const port = process.env.APP_PORT || 8000;
 const dbInitalSetup = require("./dbInitialSetup");
+const cors = require("cors");
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

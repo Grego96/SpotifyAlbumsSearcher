@@ -3,6 +3,6 @@ const routes = express.Router();
 const apiController = require("../controllers/apiController");
 
 routes.get("/token", apiController.spotifyAccessToken);
-routes.get("/album/:id", apiController.getAlbums);
+routes.get("/search", apiController.getAlbums);
 
 module.exports = routes;

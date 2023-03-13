@@ -63,15 +63,39 @@ async function spotifyAccessToken() {
 }
 
 async function getAlbums(req, res) {
-  const result = await axios({
-    method: "get",
-    baseUrl: `https://api.spotify.com/v1/albums/${req.params.id}`,
-    headers: {
-      Authorization: `Bearer ${await spotifyAccessToken()}`,
-    },
-  });
-  console.log(result);
-  // res.status(200).json(result);
+  try {
+    const token = await spotifyAccessToken();
+    const artistResponse = await fetch(
+      `https://api.spotify.com/v1/search?query=${req.query.artistName}&type=artist&market=us&limit=50&offset=0`,
+      {
+        method: "get",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const artistData = await artistResponse.json();
+    if (artistData.artists.items.length === 0) {
+      res.status(404).json({ message: "No artist found" });
+    } else {
+      const response = await fetch(
+        `https://api.spotify.com/v1/artists/${artistData.artists.items[0].id}/albums`,
+        {
+          method: "get",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          params: {
+            artist: "eminem",
+          },
+        }
+      );
+      const data = await response.json();
+      res.status(200).json(data);
+    }
+  } catch (error) {
+    res.status(400).json(error);
+  }
 }
 
 module.exports = {
