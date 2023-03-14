@@ -1,6 +1,6 @@
 const NodeCache = require("node-cache");
 const cache = new NodeCache();
-const axios = require("axios");
+const storeRequestData = require("./requestDataController");
 
 async function getToken(req, res) {
   const result = await fetch("https://accounts.spotify.com/api/token", {
@@ -58,7 +58,6 @@ async function spotifyAccessToken() {
   } else {
     returnValue = currentToken;
   }
-
   return returnValue;
 }
 
@@ -75,6 +74,7 @@ async function getAlbums(req, res) {
       }
     );
     const artistData = await artistResponse.json();
+    storeRequestData.store(req, res, artistData.artists.items[0].name);
     if (artistData.artists.items.length === 0) {
       res.status(404).json({ message: "No artist found" });
     } else {
@@ -91,6 +91,7 @@ async function getAlbums(req, res) {
         }
       );
       const data = await response.json();
+
       res.status(200).json(data);
     }
   } catch (error) {

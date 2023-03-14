@@ -1,7 +1,7 @@
 module.exports = (sequelize, Model, DataTypes) => {
-  class Order extends Model {}
+  class RequestData extends Model {}
 
-  Order.init(
+  RequestData.init(
     {
       id: {
         type: DataTypes.BIGINT.UNSIGNED,
@@ -16,7 +16,7 @@ module.exports = (sequelize, Model, DataTypes) => {
         },
       },
       date: {
-        type: DataTypes.STRING,
+        type: DataTypes.DATE,
         allowNull: false,
         validate: {
           notEmpty: true,
@@ -32,9 +32,9 @@ module.exports = (sequelize, Model, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "UserData",
+      modelName: "requestData",
     }
   );
 
-  return Order;
+  return RequestData;
 };

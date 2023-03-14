@@ -11,6 +11,6 @@ const sequelize = new Sequelize(
   }
 );
 
-const UserData = require("./UserData")(sequelize, Model, DataTypes);
+const RequestData = require("./RequestData")(sequelize, Model, DataTypes);
 
-module.exports = { sequelize, UserData };
+module.exports = { sequelize, RequestData };
