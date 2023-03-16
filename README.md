@@ -17,3 +17,9 @@ Aplicación para encontrar álbumes de spotify, para buscar ir a la
         ClientIdSecret obtenidos en
         https://developer.spotify.com/dashboard/login ya que se eligió como
         Authorization Code Flow el flujo "Client credentials".
+
+Available Scripts
+
+In the project directory, you can run:
+
+npm start
